@@ -1,34 +1,36 @@
 #pragma once
 
-#include <vector>
+#include "mtra.h"
+#include <unordered_map>
 
-class graph;
 struct path;
 
 class node {
 private:
     int id;
-    float longitude;
     float lattitude;
-    static int count;
-    std::vector<std::vector<node*, path>> paths;
+    float longitude;
+    std::unordered_map<int, path> neighbours;
 
-    friend graph;
+    friend class graph;
+    friend class node_manager;
 
     friend float euclidean_distance(node& a, node& b);
 
-    node() 
-        : longitude(0.0f), lattitude(0.0f), id{++count} {}                      // Default constructor
-    node(float lattitude_val, float longitude_val) 
-        : lattitude(lattitude_val), longitude(longitude_val), id(++count) {}    // Parameterized Constructor    
+    node();
+    node(float lattitude_val, float longitude_val);
+        
+public:
+    void print_neighbours ();
 
+    bool add_neighbour (int neighbour_id, float distance);
+
+    bool add_neighbour(int neighbour_id, const path &path_to_neighbour);
+
+    void print_node ();
 };
 
-// Initialize static members
-int node::count = 0;
-
-struct path
-{
+struct path {
     float distance = 0.0f;
     float time_walk = 0.0f;
     float time_bus = 0.0f;
@@ -37,6 +39,5 @@ struct path
     int popularity = 0;                                                         // Range [0, 10]
 };
 
-float euclidean_distance(node& a, node& b) {
-    return sqrt(pow(a.longitude - b.longitude, 2) + pow(a.lattitude - b.lattitude, 2));
-}
+float euclidean_distance(node& a, node& b);
+
