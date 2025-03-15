@@ -9,7 +9,6 @@ int node_manager::count = 0;
 void node_manager::add_to_node_manager(node* new_node) {
     new_node->id = ++count;
     nodes[new_node->id] = make_shared<node>(*new_node);
-    std::cout << new_node->id;
 }
 
 std::vector<int> node_manager::get_node_ids() {

@@ -14,6 +14,7 @@ add_executable(
     node.h
     node.cpp
     graph.h
+    graph.cpp
     mtra.h
 )
 

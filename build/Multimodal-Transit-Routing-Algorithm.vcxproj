@@ -315,6 +315,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node.h" />
     <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node.cpp" />
     <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\graph.h" />
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\graph.cpp" />
     <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\mtra.h" />
   </ItemGroup>
   <ItemGroup>
