@@ -5,5 +5,6 @@ add_executable(
     Multimodal-Transit-Routing-Algorithm 
     main.cpp
     node.h
+    graph.h
 )
 
