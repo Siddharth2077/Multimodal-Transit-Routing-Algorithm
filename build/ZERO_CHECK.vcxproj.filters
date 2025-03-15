@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\build\CMakeFiles\9ef44a2ffcb6fa0e7ad6c0629881a292\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{02D16A89-17D5-34B7-B89D-82ED9DF5CB79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

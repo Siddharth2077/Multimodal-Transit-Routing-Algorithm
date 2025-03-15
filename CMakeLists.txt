@@ -4,5 +4,6 @@ project(Multimodal-Transit-Routing-Algorithm VERSION 0.1.0 LANGUAGES C CXX)
 add_executable(
     Multimodal-Transit-Routing-Algorithm 
     main.cpp
+    node.h
 )
 

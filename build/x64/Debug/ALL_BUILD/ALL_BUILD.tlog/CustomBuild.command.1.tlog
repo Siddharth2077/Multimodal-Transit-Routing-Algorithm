@@ -1,0 +1,10 @@
+^D:\MY DOCUMENTS\C++ PROJECTS\MULTIMODAL TRANSIT ROUTING\MULTIMODAL-TRANSIT-ROUTING-ALGORITHM\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/My Documents/C++ Projects/Multimodal Transit Routing/Multimodal-Transit-Routing-Algorithm" "-BD:/My Documents/C++ Projects/Multimodal Transit Routing/Multimodal-Transit-Routing-Algorithm/build" --check-stamp-file "D:/My Documents/C++ Projects/Multimodal Transit Routing/Multimodal-Transit-Routing-Algorithm/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
