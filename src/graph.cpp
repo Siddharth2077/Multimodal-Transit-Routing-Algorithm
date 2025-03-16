@@ -1,4 +1,5 @@
 #include "mtra.h"
+#include <queue>
 
 // One Definition Rule 
 // Header files get imported in multiple files, and will lead to multiple definition of static members
@@ -31,8 +32,70 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
     if (!graph::get_node_by_id(source_node_id) || !graph::get_node_by_id(destination_node_id))
         return std::vector<int>();
 
+    if (source_node_id == destination_node_id) {
+        return {source_node_id};
+    }
+
+    bool is_path_found{false};
+
     std::vector<int> shortest_path{};
-    
+
+    // Key: Node id; Value: Lowest cost of reaching that node
+    std::unordered_map<int, std::pair<int, cost*>> visited; 
+
+    // Priority queue with custom comparator for min-heap
+    std::priority_queue<priorityq_entry*, std::vector<priorityq_entry*>, std::greater<priorityq_entry*>> priority_q;
+
+    cost* source_node_cost = new cost(0.0f, 0.0f);
+    priorityq_entry* source_node = new priorityq_entry(source_node_id, -1, source_node_cost);
+    priority_q.push(source_node);
+    visited[source_node_id] = {-1, source_node_cost};
+
+    while (!priority_q.empty()) {
+        priorityq_entry* nearest_node_entry = priority_q.top();
+        priority_q.pop();
+
+        int current_node_id = nearest_node_entry->current_node_id;
+        int parent_node_id = nearest_node_entry->parent_node_id;
+        cost *path_cost = nearest_node_entry->path_cost;
+
+        if (current_node_id == destination_node_id) {
+            is_path_found = true;
+            break;
+        }
+
+        std::vector<int> neighbour_ids = graph::get_node_by_id(current_node_id)->get_neighbour_ids();
+        for(auto neighbour_id: neighbour_ids) {
+
+            // ! Assumption: We are not re-visiting already visited node since the first calculated distance is the shortest
+            if (visited.find(neighbour_id) != visited.end()) {
+                continue;
+            }
+
+            cost* neighbour_cost = new cost(path_cost->distance + euclidean_distance(current_node_id, neighbour_id));
+            priorityq_entry* q_entry = new priorityq_entry(neighbour_id, current_node_id, neighbour_cost);
+            priority_q.push(q_entry);
+
+            visited[neighbour_id] = {parent_node_id, neighbour_cost};
+
+        }
+    }
+
+    if (!is_path_found) {
+        return {};
+    }
+
+    shortest_path.push_back(destination_node_id);
+
+    int current_node_id = destination_node_id;
+    while (visited[current_node_id].first != -1) {
+        int parent_node_id = visited[current_node_id].first;
+        shortest_path.push_back(parent_node_id);
+        current_node_id = parent_node_id;
+    }
+
+    std::reverse(shortest_path.begin(), shortest_path.end());
+
     return shortest_path;
 }
 
@@ -98,9 +161,9 @@ void graph::create_debug_graph () {
         }
     }
 
-    for (int node_id: node_ids) {
-        graph::get_node_by_id(node_id)->print_neighbours();
-    }
+    // for (int node_id: node_ids) {
+    //     graph::get_node_by_id(node_id)->print_neighbours();
+    // }
 
 }
 

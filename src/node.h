@@ -16,7 +16,8 @@ private:
     // friends
     friend class graph;
     friend float euclidean_distance(node* a, node* b);
-    
+    friend float euclidean_distance(const int first_node_id, const int second_node_id);
+
     node();
     node(float lattitude_val, float longitude_val);
     
@@ -30,6 +31,8 @@ public:
     bool add_neighbour (int neighbour_id, float distance);
 
     bool add_neighbour(int neighbour_id, const path &path_to_neighbour);
+
+    std::vector<int> get_neighbour_ids ();
 
     void print_node ();
 };
@@ -45,3 +48,4 @@ struct path {
 
 float euclidean_distance(node* a, node* b);
 
+float euclidean_distance(const int first_node_id, const int second_node_id);
