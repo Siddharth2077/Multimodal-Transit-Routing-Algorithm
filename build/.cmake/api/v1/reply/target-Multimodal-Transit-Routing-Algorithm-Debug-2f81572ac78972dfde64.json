@@ -123,27 +123,32 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-graphics.lib\"",
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-graphics-d.lib\"",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-window.lib\"",
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-window-d.lib\"",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-audio.lib\"",
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-audio-d.lib\"",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-network.lib\"",
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-network-d.lib\"",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-system.lib\"",
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-system-d.lib\"",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\freetype.lib\"",
 				"role" : "libraries"
 			},
 			{
@@ -164,11 +169,6 @@
 			{
 				"backtrace" : 3,
 				"fragment" : "user32.lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "freetype.lib",
 				"role" : "libraries"
 			},
 			{

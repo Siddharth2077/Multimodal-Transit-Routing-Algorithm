@@ -115,7 +115,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib;D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -159,7 +159,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib;D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -203,7 +203,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib;D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -246,7 +246,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-graphics-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-window-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-audio-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-network-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\sfml-system-d.lib;D:\My Documents\C++ Projects\libraries\SFML-2.6.2\lib\freetype.lib;opengl32.lib;winmm.lib;gdi32.lib;user32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib;D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>

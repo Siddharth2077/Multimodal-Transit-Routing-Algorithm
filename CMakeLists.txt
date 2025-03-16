@@ -28,16 +28,16 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")            # --------------------------
     # Link SFML libraries
     target_link_libraries(
         Multimodal-Transit-Routing-Algorithm 
-        "${SFML_LIB_DIR}/sfml-graphics.lib"
-        "${SFML_LIB_DIR}/sfml-window.lib"
-        "${SFML_LIB_DIR}/sfml-audio.lib"
-        "${SFML_LIB_DIR}/sfml-network.lib"
-        "${SFML_LIB_DIR}/sfml-system.lib"  # You can keep this here manually
+        "${SFML_LIB_DIR}/sfml-graphics-d.lib"
+        "${SFML_LIB_DIR}/sfml-window-d.lib"
+        "${SFML_LIB_DIR}/sfml-audio-d.lib"
+        "${SFML_LIB_DIR}/sfml-network-d.lib"
+        "${SFML_LIB_DIR}/sfml-system-d.lib"
+        "${SFML_LIB_DIR}/freetype.lib"
         opengl32
         winmm
         gdi32
         user32
-        freetype
     )   
 
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")         # ---------------------------- MacOS ---------------------------- #

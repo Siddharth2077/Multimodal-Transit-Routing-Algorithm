@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 
 // Window settings
 const int WIDTH = 800, HEIGHT = 600;
@@ -17,6 +18,15 @@ int main() {
 
     // Sample points to plot (adjust these as needed)
     std::vector<sf::Vector2f> points = { {-100, 100}, {50, -50}, {200, 150}, {-150, -100} };
+
+    const std::string fontpath {"../../assets/fonts/Roboto-Medium.ttf"};
+
+    // Load font for labels
+    sf::Font font;
+    if (!font.loadFromFile(fontpath)) {
+        std::cerr << "Error loading font!" << std::endl;
+        return -1;
+    }
 
     while (window.isOpen()) {
         sf::Event event;
@@ -70,16 +80,35 @@ int main() {
         window.draw(xAxis, 2, sf::Lines);
         window.draw(yAxis, 2, sf::Lines);
 
-        // Draw points
+        // Draw points with labels
         sf::Color pointColor = sf::Color::Red;
-        float radius = 5.f;
+        float radius = 15.f;  // Increased size for better visibility
+        int pointIndex = 1;
 
         for (const auto& point : points) {
-            sf::CircleShape dot(radius);
             sf::Vector2f screenPos = toScreenCoords(point.x, point.y);
+
+            // Draw circle
+            sf::CircleShape dot(radius);
             dot.setPosition(screenPos.x - radius, screenPos.y - radius);
             dot.setFillColor(pointColor);
             window.draw(dot);
+
+            // Draw number inside circle
+            sf::Text label;
+            label.setFont(font);
+            label.setString(std::to_string(pointIndex));
+            label.setCharacterSize(14);
+            label.setFillColor(sf::Color::White);
+            label.setStyle(sf::Text::Bold);
+
+            // Center the text inside the circle
+            sf::FloatRect textBounds = label.getLocalBounds();
+            label.setOrigin(textBounds.width / 2, textBounds.height / 2);
+            label.setPosition(screenPos.x, screenPos.y - 3);  // Adjust to center
+
+            window.draw(label);
+            pointIndex++;
         }
 
         window.display();
