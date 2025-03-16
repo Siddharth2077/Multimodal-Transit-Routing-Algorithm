@@ -72,7 +72,11 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
                 continue;
             }
 
-            cost* neighbour_cost = new cost(path_cost->distance + euclidean_distance(current_node_id, neighbour_id));
+            cost* neighbour_cost = new cost(
+                path_cost->distance +                                       // cost to reach current node
+                euclidean_distance(current_node_id, neighbour_id) +         // cost to neighbour from current node
+                euclidean_distance(neighbour_id, destination_node_id)       // heuristic cost from neighbour to destination
+            );
             priorityq_entry* q_entry = new priorityq_entry(neighbour_id, current_node_id, neighbour_cost);
             priority_q.push(q_entry);
 
