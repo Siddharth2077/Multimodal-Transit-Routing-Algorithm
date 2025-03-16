@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\main.cpp">
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node_manager.cpp">
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node.cpp">
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\graph.cpp">
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node_manager.h">
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\node.h">
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\mtra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\graph.h">
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\mtra.h">
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
