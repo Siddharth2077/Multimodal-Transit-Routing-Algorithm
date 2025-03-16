@@ -41,7 +41,37 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")            # --------------------------
     )   
 
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")         # ---------------------------- MacOS ---------------------------- #
+    # Add include directories
+    include_directories(${CMAKE_SOURCE_DIR}/include)
 
+    # SFML include directories
+    include_directories("/opt/homebrew/opt/sfml@2/include")   
+    
+    # Manually link SFML libraries
+    set(SFML_LIB_DIR "/opt/homebrew/opt/sfml@2/lib")
+    link_directories(${SFML_LIB_DIR})
+
+    # Set SFML CMake directory
+    set(SFML_DIR "/opt/homebrew/opt/sfml@2/lib/cmake/SFML")   
+
+    # Recursively compile all our source files from the /src directory
+    file(GLOB_RECURSE SRC_FILES src/*.cpp src/*.h)
+
+    # Add all the source files under /src
+    add_executable(
+        Multimodal-Transit-Routing-Algorithm 
+        ${SRC_FILES}
+    )
+
+    # Link SFML libraries
+    target_link_libraries(
+        Multimodal-Transit-Routing-Algorithm
+        sfml-graphics
+        sfml-window
+        sfml-audio
+        sfml-network
+        sfml-system
+    )
 
 endif()
 

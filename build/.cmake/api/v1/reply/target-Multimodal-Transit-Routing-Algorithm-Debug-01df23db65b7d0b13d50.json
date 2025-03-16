@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MinSizeRel/Multimodal-Transit-Routing-Algorithm.exe"
-		},
-		{
-			"path" : "MinSizeRel/Multimodal-Transit-Routing-Algorithm.pdb"
+			"path" : "Multimodal-Transit-Routing-Algorithm"
 		}
 	],
 	"backtrace" : 1,
@@ -30,31 +27,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 26,
+				"line" : 61,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 17,
+				"line" : 52,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 29,
+				"line" : 67,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 11,
+				"line" : 45,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 13,
+				"line" : 48,
 				"parent" : 0
 			}
 		]
@@ -65,18 +62,18 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG -std:c++17"
+					"fragment" : "-g -std=c++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 4,
-					"path" : "D:/My Documents/C++ Projects/Multimodal Transit Routing/Multimodal-Transit-Routing-Algorithm/include"
+					"path" : "/Users/yashaskamath/Documents/Coding/Multimodal-Transit-Routing-Algorithm/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "D:/My Documents/C++ Projects/libraries/SFML-2.6.2/include"
+					"path" : "/opt/homebrew/opt/sfml@2/include"
 				}
 			],
 			"language" : "CXX",
@@ -96,89 +93,58 @@
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
-		}
-	],
 	"id" : "Multimodal-Transit-Routing-Algorithm::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
+				"fragment" : "-g",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LIBPATH:\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\"",
+				"fragment" : "-L/opt/homebrew/opt/sfml@2/lib",
 				"role" : "libraryPath"
 			},
 			{
-				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-graphics-d.lib\"",
+				"fragment" : "-Wl,-rpath,/opt/homebrew/opt/sfml@2/lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-window-d.lib\"",
+				"fragment" : "-lsfml-graphics",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-audio-d.lib\"",
+				"fragment" : "-lsfml-window",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-network-d.lib\"",
+				"fragment" : "-lsfml-audio",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\sfml-system-d.lib\"",
+				"fragment" : "-lsfml-network",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "\"D:\\My Documents\\C++ Projects\\libraries\\SFML-2.6.2\\lib\\freetype.lib\"",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "opengl32.lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "winmm.lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "gdi32.lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "user32.lib",
-				"role" : "libraries"
-			},
-			{
-				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"fragment" : "-lsfml-system",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "Multimodal-Transit-Routing-Algorithm",
-	"nameOnDisk" : "Multimodal-Transit-Routing-Algorithm.exe",
+	"nameOnDisk" : "Multimodal-Transit-Routing-Algorithm",
 	"paths" : 
 	{
 		"build" : ".",
