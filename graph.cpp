@@ -23,8 +23,47 @@ void graph::create_debug_graph () {
 
     std::vector<int> node_ids = node_manager::get_node_ids();
 
+    std::vector<std::vector<int>> node_neighbours = {
+        {7, 11},
+        {3, 5, 7},
+        {2, 5, 6, 8},
+        {10},
+        {2, 3, 8, 9, 15, 16},
+        {3, 13, 17},
+        {1, 2, 9, 15},
+        {3, 5, 9, 10, 13, 19},
+        {5, 7, 8, 11, 12, 20},
+        {4, 8, 12, 13, 14},
+        {1, 9, 20},
+        {9, 10, 16, 18},
+        {6, 8, 10, 16, 19, 26},
+        {10, 16, 17},
+        {5, 7, 16, 18, 20, 23},
+        {5, 12, 13, 14, 15, 19, 21, 23, 24},
+        {6, 14, 22, 24},
+        {12, 15, 20, 21},
+        {8, 13, 16, 21, 22, 25},
+        {9, 11, 15, 18, 23, 27},
+        {16, 18, 19, 25, 27},
+        {17, 19, 25, 26},
+        {15, 16, 20, 27},
+        {16, 17, 26},
+        {19, 21, 22, 26, 27},
+        {13, 22, 24, 25, 27},
+        {20, 21, 23, 25, 26}
+    };
+
+    // Build the node neighbours list for each node
+    for (int current_node_id{1}; current_node_id <= node_neighbours.size(); current_node_id++) {
+        for (auto& neighbour: node_neighbours.at(current_node_id - 1)) {
+            if (shared_ptr<node> current_node = node_manager::get_node_by_id(current_node_id)) {
+                current_node->add_neighbour(neighbour);
+            }            
+        }
+    }
+
     for (int node_id: node_ids) {
-        node_manager::get_node_by_id(node_id)->print_node();
+        node_manager::get_node_by_id(node_id)->print_neighbours();
     }
 
 }
