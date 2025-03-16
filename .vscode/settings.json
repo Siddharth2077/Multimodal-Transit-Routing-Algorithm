@@ -3,6 +3,9 @@
         "*.ejs": "html",
         "iostream": "cpp",
         "vector": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "chrono": "cpp",
+        "span": "cpp",
+        "utility": "cpp"
     }
 }

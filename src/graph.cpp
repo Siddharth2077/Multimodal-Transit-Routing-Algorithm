@@ -50,6 +50,7 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
     priorityq_entry* source_node = new priorityq_entry(source_node_id, -1, source_node_cost);
     priority_q.push(source_node);
     visited[source_node_id] = {-1, source_node_cost};
+    visited[-1] = {-2, source_node_cost}; //! jugad
 
     while (!priority_q.empty()) {
         priorityq_entry* nearest_node_entry = priority_q.top();
@@ -57,7 +58,6 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
 
         int current_node_id = nearest_node_entry->current_node_id;
         int parent_node_id = nearest_node_entry->parent_node_id;
-        cost *path_cost = nearest_node_entry->path_cost;
 
         if (current_node_id == destination_node_id) {
             is_path_found = true;
@@ -73,14 +73,15 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
             }
 
             cost* neighbour_cost = new cost(
-                path_cost->distance +                                       // cost to reach current node
+                // path_cost->distance +                                       // cost to reach current node
+                visited[current_node_id].second->distance + 
                 euclidean_distance(current_node_id, neighbour_id) +         // cost to neighbour from current node
                 euclidean_distance(neighbour_id, destination_node_id)       // heuristic cost from neighbour to destination
             );
             priorityq_entry* q_entry = new priorityq_entry(neighbour_id, current_node_id, neighbour_cost);
             priority_q.push(q_entry);
 
-            visited[neighbour_id] = {parent_node_id, neighbour_cost};
+            visited[neighbour_id] = {current_node_id, new cost(visited[parent_node_id].second->distance + euclidean_distance(current_node_id, neighbour_id), 0.0f)};
 
         }
     }

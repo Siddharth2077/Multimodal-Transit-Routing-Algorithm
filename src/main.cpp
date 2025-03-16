@@ -4,7 +4,7 @@ int main() {
     
     graph debug_graph(true);
 
-    std::vector<int> shortest_path = debug_graph.compute_shortest_path(1, 9);
+    std::vector<int> shortest_path = debug_graph.compute_shortest_path(1, 27);
 
     for (int node_id: shortest_path) {
         std::cout<<node_id<<" ";
