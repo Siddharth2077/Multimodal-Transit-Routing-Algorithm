@@ -1,0 +1,18 @@
+﻿  Building Custom Rule D:/My Documents/C++ Projects/Multimodal Transit Routing/Multimodal-Transit-Routing-Algorithm/CMakeLists.txt
+  graph.cpp
+D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.cpp(41,52): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.cpp(41,34): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+  main.cpp
+  node.cpp
+D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node.cpp(55,16): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  node_manager.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node_manager.cpp': No such file or directory
+  Generating Code...

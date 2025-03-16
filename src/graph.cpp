@@ -1,5 +1,41 @@
 #include "mtra.h"
 
+// One Definition Rule 
+// Header files get imported in multiple files, and will lead to multiple definition of static members
+// Static members need to be defined only once, hence, defined in this cpp file to avoid linker errors.
+std::unordered_map<int, node*> graph::nodes;
+int graph::count = 0;
+
+// Constructors:
+graph::graph() = default;
+
+graph::graph (int osm_file) {
+    // TODO: Read the osm file and create the graph
+}
+
+graph::graph (bool debug) {
+    if (!debug)
+        return;
+    create_debug_graph();
+}
+
+// Destructor
+graph::~graph()  {
+    for (auto& node_pair : nodes) {
+        delete node_pair.second;
+    }
+    nodes.clear();
+}
+
+std::vector<int> graph::compute_shortest_path (const int source_node_id, const int destination_node_id) {
+    if (!graph::get_node_by_id(source_node_id) || !graph::get_node_by_id(destination_node_id))
+        return std::vector<int>();
+
+    std::vector<int> shortest_path{};
+    
+    return shortest_path;
+}
+
 void graph::create_debug_graph () {
     std::vector<std::pair<int, int>> coordinates = {
         {1, 1}, {1, 4}, {1, 7}, {1, 10},
@@ -18,10 +54,10 @@ void graph::create_debug_graph () {
     };
 
     for (auto &coordinate: coordinates) {
-        node temp_node(coordinate.first, coordinate.second);
+        node* temp_node = new node(coordinate.first, coordinate.second);
     }
 
-    std::vector<int> node_ids = node_manager::get_node_ids();
+    std::vector<int> node_ids = graph::get_node_ids();
 
     std::vector<std::vector<int>> node_neighbours = {
         {7, 11},
@@ -56,26 +92,33 @@ void graph::create_debug_graph () {
     // Build the node neighbours list for each node
     for (int current_node_id{1}; current_node_id <= node_neighbours.size(); current_node_id++) {
         for (auto& neighbour: node_neighbours.at(current_node_id - 1)) {
-            if (shared_ptr<node> current_node = node_manager::get_node_by_id(current_node_id)) {
+            if (node* current_node = graph::get_node_by_id(current_node_id)) {
                 current_node->add_neighbour(neighbour);
             }            
         }
     }
 
     for (int node_id: node_ids) {
-        node_manager::get_node_by_id(node_id)->print_neighbours();
+        graph::get_node_by_id(node_id)->print_neighbours();
     }
 
 }
 
-graph::graph() = default;
-
-graph::graph (int osm_file) {
-    // TODO: Read the osm file and create the graph
+void graph::add_to_graph(node* new_node) {
+    new_node->id = ++count;
+    nodes[new_node->id] = new_node;
 }
 
-graph::graph (bool debug) {
-    if (!debug)
-        return;
-    create_debug_graph();
+std::vector<int> graph::get_node_ids() {
+    std::vector<int> node_ids;
+    for (const auto &node : nodes) {
+        node_ids.push_back(node.first);
+    }
+    return node_ids;
+}
+
+node* graph::get_node_by_id(const int id) {
+    if (nodes.find(id) == nodes.end())
+        return nullptr;
+    return nodes[id];
 }

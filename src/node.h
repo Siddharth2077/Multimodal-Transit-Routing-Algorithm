@@ -11,11 +11,11 @@ private:
     float lattitude;
     float longitude;
     std::unordered_map<int, path> neighbours;
+    std::unordered_map<int, float> heuristics;
 
+    // friends
     friend class graph;
-    friend class node_manager;
-
-    friend float euclidean_distance(node& a, shared_ptr<node> b);
+    friend float euclidean_distance(node* a, node* b);
     
     node();
     node(float lattitude_val, float longitude_val);
@@ -43,5 +43,5 @@ struct path {
     int popularity = 0;                                                         // Range [0, 10]
 };
 
-float euclidean_distance(node& a, shared_ptr<node> b);
+float euclidean_distance(node* a, node* b);
 

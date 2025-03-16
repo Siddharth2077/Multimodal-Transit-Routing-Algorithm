@@ -1,20 +1,20 @@
 #include "mtra.h"
 
 node::node() : longitude(0.0f), lattitude(0.0f), id(0) { // Default constructor
-    node_manager::add_to_node_manager(this);
+    graph::add_to_graph(this);
 }
 
 node::node (float lattitude_val, float longitude_val)
     : lattitude(lattitude_val), longitude(longitude_val), id(0) { // Parameterized Constructor
-    node_manager::add_to_node_manager(this);
+    graph::add_to_graph(this);
 }
 
 path* node::calculate_path(const int neighbour_id) {
     if (neighbours.find(neighbour_id) != neighbours.end())
         return nullptr;
-    shared_ptr<node> neighbour = node_manager::get_node_by_id(neighbour_id);
+    node* neighbour = graph::get_node_by_id(neighbour_id);
     path* path_to_neighbour = new path();
-    path_to_neighbour->distance = euclidean_distance(*this, neighbour);
+    path_to_neighbour->distance = euclidean_distance(this, neighbour);
     path_to_neighbour->time_walk = path_to_neighbour->distance / WALK_SPEED;
     path_to_neighbour->time_bus = path_to_neighbour->distance / BUS_SPEED;
     path_to_neighbour->time_metro = path_to_neighbour->distance / METRO_SPEED;
@@ -51,6 +51,6 @@ void node::print_node() {
     std::cout << "Node id: " << id << " Lattitude: " << lattitude << " Longitude: " << longitude << std::endl;
 }
 
-float euclidean_distance(node &a, shared_ptr<node> b) {
-    return sqrt(pow(a.longitude - b->longitude, 2) + pow(a.lattitude - b->lattitude, 2));
+float euclidean_distance(node* a, node* b) {
+    return sqrt(pow(a->longitude - b->longitude, 2) + pow(a->lattitude - b->lattitude, 2));
 }

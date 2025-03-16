@@ -16,5 +16,4 @@ const int METRO_SPEED{50};
 const int DRIVE_SPEED{60};
 
 #include "node.h"
-#include "node_manager.h"
 #include "graph.h"
