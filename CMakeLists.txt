@@ -10,14 +10,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")            # --------------------------
     # Add include directories
     include_directories(${CMAKE_SOURCE_DIR}/include)
     # SFML include directories
-    include_directories("D:/My Documents/C++ Projects/libraries/SFML-3.0.0/include")
+    include_directories("D:/My Documents/C++ Projects/libraries/SFML-2.6.2/include")
 
     # Manually link SFML libraries
-    set(SFML_LIB_DIR "D:/My Documents/C++ Projects/libraries/SFML-3.0.0/lib")
+    set(SFML_LIB_DIR "D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib")
     link_directories(${SFML_LIB_DIR})
 
     # Set SFML Cmake directory
-    set(SFML_DIR "D:/My Documents/C++ Projects/libraries/SFML-3.0.0/lib/cmake/SFML")
+    set(SFML_DIR "D:/My Documents/C++ Projects/libraries/SFML-2.6.2/lib/cmake/SFML")
 
     # Recursively compile all our source files from the /src directory
     file(GLOB_RECURSE SRC_FILES src/*.cpp src/*.h)
