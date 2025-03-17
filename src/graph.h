@@ -6,7 +6,10 @@ struct priorityq_entry;
 class graph {
 private:
     static std::unordered_map<int, node*> nodes;
-    static int count;
+    static int node_count;
+    static int instance_count;
+
+    int graph_id {};
 
     // Getters:
     static node* get_node_by_id (const int id);
@@ -43,21 +46,19 @@ struct cost {
     cost(float d = 0.0f, float t = 0.0f) : distance(d), time(t) {}
 };
 
-// Inline comparator for min-heap behavior
 inline cost operator+(const cost& first, const cost& second) {
     return cost(first.distance + second.distance, first.time + second.time);
+}
+
+inline shared_ptr<cost> operator+(const shared_ptr<cost> first, const shared_ptr<cost> second) {
+    return make_shared<cost>(first->distance + second->distance, first->time + second->time);
 }
 
 struct priorityq_entry {
     const int current_node_id;
     const int parent_node_id;
-    cost *path_cost;
+    std::shared_ptr<cost> path_cost;
 
-    priorityq_entry(const int c_node_id, const int p_node_id, cost *p_cost) 
+    priorityq_entry(const int c_node_id, const int p_node_id, std::shared_ptr<cost> p_cost) 
         : current_node_id(c_node_id), parent_node_id(p_node_id), path_cost(p_cost) {}
-
-    // Inline comparator for min-heap behavior
-    bool operator<(const priorityq_entry &other) const {
-        return path_cost->distance < other.path_cost->distance; 
-    }
 };

@@ -5,16 +5,17 @@
 // Header files get imported in multiple files, and will lead to multiple definition of static members
 // Static members need to be defined only once, hence, defined in this cpp file to avoid linker errors.
 std::unordered_map<int, node*> graph::nodes;
-int graph::count = 0;
+int graph::node_count = 0;
+int graph::instance_count = 0;
 
 // Constructors:
-graph::graph() = default;
+graph::graph() : graph_id(++instance_count) {};
 
-graph::graph (int osm_file) {
+graph::graph (int osm_file) : graph_id(++instance_count) {
     // TODO: Read the osm file and create the graph
 }
 
-graph::graph (bool debug) {
+graph::graph (bool debug) : graph_id(++instance_count) {
     if (!debug)
         return;
     create_debug_graph();
@@ -40,20 +41,31 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
 
     std::vector<int> shortest_path{};
 
-    // Key: Node id; Value: Lowest cost of reaching that node
-    std::unordered_map<int, std::pair<int, cost*>> visited; 
+    std::unordered_map<int, std::pair<int, std::shared_ptr<cost>>> visited; 
 
+    struct ComparePriority {
+        bool operator()(const std::shared_ptr<priorityq_entry> a, const std::shared_ptr<priorityq_entry> b) const {
+            return a->path_cost->distance > b->path_cost->distance;  // Min-heap: lower cost has higher priority
+        }
+    };
+    
     // Priority queue with custom comparator for min-heap
-    std::priority_queue<priorityq_entry*, std::vector<priorityq_entry*>, std::greater<priorityq_entry*>> priority_q;
+    std::priority_queue<std::shared_ptr<priorityq_entry>, std::vector<std::shared_ptr<priorityq_entry>>, ComparePriority> priority_q;
 
-    cost* source_node_cost = new cost(0.0f, 0.0f);
-    priorityq_entry* source_node = new priorityq_entry(source_node_id, -1, source_node_cost);
-    priority_q.push(source_node);
+    
+    node* source_node = graph::get_node_by_id(source_node_id);
+    auto source_node_cost = make_shared<cost>(0.0f, 0.0f);
+    source_node->add_heuristic(graph_id, destination_node_id);
+    auto source_node_heuristic = source_node->get_heuristic(graph_id);
+
+    auto source_node_entry = make_shared<priorityq_entry>(source_node_id, -1, source_node_cost + source_node_heuristic);
+    priority_q.push(source_node_entry);
+
     visited[source_node_id] = {-1, source_node_cost};
-    visited[-1] = {-2, source_node_cost}; //! jugad
 
     while (!priority_q.empty()) {
-        priorityq_entry* nearest_node_entry = priority_q.top();
+
+        std::shared_ptr<priorityq_entry> nearest_node_entry = priority_q.top();
         priority_q.pop();
 
         int current_node_id = nearest_node_entry->current_node_id;
@@ -67,21 +79,26 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
         std::vector<int> neighbour_ids = graph::get_node_by_id(current_node_id)->get_neighbour_ids();
         for(auto neighbour_id: neighbour_ids) {
 
-            // ! Assumption: We are not re-visiting already visited node since the first calculated distance is the shortest
-            if (visited.find(neighbour_id) != visited.end()) {
-                continue;
-            }
-
-            cost* neighbour_cost = new cost(
-                // path_cost->distance +                                       // cost to reach current node
+            auto neighbour_cost = std::make_shared<cost>(
                 visited[current_node_id].second->distance + 
-                euclidean_distance(current_node_id, neighbour_id) +         // cost to neighbour from current node
-                euclidean_distance(neighbour_id, destination_node_id)       // heuristic cost from neighbour to destination
+                euclidean_distance(current_node_id, neighbour_id) +  
+                euclidean_distance(neighbour_id, destination_node_id)  
             );
-            priorityq_entry* q_entry = new priorityq_entry(neighbour_id, current_node_id, neighbour_cost);
+
+            // Checks if we should re-visit this node if it has a lower cost
+            if (visited.find(neighbour_id) != visited.end() && visited[neighbour_id].second->distance <= neighbour_cost->distance)
+                continue;
+
+            auto q_entry = std::make_shared<priorityq_entry>(neighbour_id, current_node_id, neighbour_cost);
             priority_q.push(q_entry);
 
-            visited[neighbour_id] = {current_node_id, new cost(visited[parent_node_id].second->distance + euclidean_distance(current_node_id, neighbour_id), 0.0f)};
+            float parent_node_cost = (parent_node_id == -1) ? 0.0f : visited[parent_node_id].second->distance;
+
+            // Store cost in visited using unique_ptr
+            visited[neighbour_id] = {
+                current_node_id, 
+                std::make_unique<cost>(parent_node_cost + euclidean_distance(current_node_id, neighbour_id), 0.0f)
+            };
 
         }
     }
@@ -173,7 +190,7 @@ void graph::create_debug_graph () {
 }
 
 void graph::add_to_graph(node* new_node) {
-    new_node->id = ++count;
+    new_node->id = ++node_count;
     nodes[new_node->id] = new_node;
 }
 

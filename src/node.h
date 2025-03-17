@@ -4,14 +4,18 @@
 #include <unordered_map>
 
 struct path;
+struct cost;
 
 class node {
 private:
     int id;
     float lattitude;
     float longitude;
+
     std::unordered_map<int, path> neighbours;
-    std::unordered_map<int, float> heuristics;
+
+    /// @brief Key: Graph ID | Value: Heuristic value of this node for the graph
+    std::unordered_map<int, shared_ptr<cost>> heuristics;          
 
     // friends
     friend class graph;
@@ -32,9 +36,13 @@ public:
 
     bool add_neighbour(int neighbour_id, const path &path_to_neighbour);
 
-    std::vector<int> get_neighbour_ids ();
-
     void print_node ();
+
+    bool add_heuristic (const int graph_id, const int destination_node_id);
+
+    shared_ptr<cost> get_heuristic (const int graph_id);
+
+    std::vector<int> get_neighbour_ids ();
 };
 
 struct path {

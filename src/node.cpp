@@ -59,6 +59,21 @@ void node::print_node () {
     std::cout << "Node id: " << id << " Lattitude: " << lattitude << " Longitude: " << longitude << std::endl;
 }
 
+bool node::add_heuristic (const int graph_id, const int destination_node_id) {
+    if (!graph::get_node_by_id(destination_node_id))
+        return false;    
+    heuristics[graph_id] = make_shared<cost>(euclidean_distance(id, destination_node_id), 0.0f);
+    return true;
+}
+
+shared_ptr<cost> node::get_heuristic (const int graph_id) {
+    if (heuristics.find(graph_id) == heuristics.end())
+        return shared_ptr<cost>();
+    return heuristics[graph_id];
+}
+
+
+// Friend functions:
 float euclidean_distance (node* a, node* b) {
     if (!a || !b)
         return F_INFINITY;
