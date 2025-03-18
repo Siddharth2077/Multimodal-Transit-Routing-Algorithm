@@ -1,128 +1,117 @@
-# import requests
-# import os
-# import glob
-# import osmnx as ox
-# import folium
-
-# # 45.5394N, 73.6250W
-
-# PATH_TO_OSM_FILES = os.path.abspath(os.path.join("..", "..", "assets", "osm_files"))
-
-
-# def download_osm_map(center_lat, center_lon, output_dir, filename="map.osm"):
-#     """
-#     Downloads a 500m x 500m OSM map centered at the given coordinates and saves it to a file.
-    
-#     Parameters:
-#         center_lat (float): Latitude of the center point.
-#         center_lon (float): Longitude of the center point.
-#         output_dir (str): Path to the directory where the OSM file should be saved.
-#         filename (str): Name of the output file (default: "map.osm").
-    
-#     Returns:
-#         str: Path to the downloaded OSM file, or None if the download fails.
-#     """
-#     OFFSET = 0.00225  # Approximate 500m offset in degrees (1 degree ≈ 111km)
-
-#     # Compute bounding box (left, bottom, right, top)
-#     bbox = f"{center_lon - OFFSET},{center_lat - OFFSET},{center_lon + OFFSET},{center_lat + OFFSET}"
-
-#     # Overpass API query
-#     query = f"""
-#     [out:xml];
-#     (
-#       node({bbox});
-#       way({bbox});
-#       relation({bbox});
-#     );
-#     (._;>;);
-#     out meta;
-#     """
-
-#     # Ensure output directory exists
-#     os.makedirs(output_dir, exist_ok=True)
-#     output_file = os.path.join(output_dir, filename)
-
-#     # Send request to Overpass API
-#     overpass_url = "https://overpass-api.de/api/interpreter"
-#     response = requests.post(overpass_url, data={"data": query})
-
-#     # Save OSM data to file if successful
-#     if response.status_code == 200:
-#         with open(output_file, "w", encoding="utf-8") as file:
-#             file.write(response.text)
-#         print(f"✅ OSM map saved to: {output_file}")
-#         return output_file
-#     else:
-#         print(f"❌ Failed to fetch data: {response.status_code}")
-#         return None
-
-
-# def visualize_osm_file():
-#     # Define file path
-#     # osm_file = download_osm_map(45.5394, -73.6250, PATH_TO_OSM_FILES, "montreal_500m.osm")
-
-#     osm_file = os.path.join(PATH_TO_OSM_FILES, "montreal_500m.osm")
-
-#     # Load OSM data into a graph using the correct function
-#     G = ox.graph_from_xml(osm_file, simplify=True)
-
-#     # Convert graph to GeoDataFrames
-#     nodes, edges = ox.graph_to_gdfs(G)
-
-#     # Get the centroid of all nodes
-#     center = nodes.geometry.unary_union.centroid
-
-#     # Create a folium map centered at the graph location
-#     m = folium.Map(location=[center.y, center.x], zoom_start=15)
-
-#     # Plot edges on the map
-#     for _, edge in edges.iterrows():
-#         if edge.geometry is not None:  # Ensure the edge has geometry data
-#             points = [(point[1], point[0]) for point in edge.geometry.coords]
-#             folium.PolyLine(points, color="blue", weight=2.5, opacity=0.8).add_to(m)
-
-#     # Save and display the map
-#     map_file = "osm_visualization.html"
-#     m.save(map_file)
-#     print(f"✅ Map saved as {map_file}. Open it in a browser.")
-
-
-# # MAIN
-# # ! REMOVE THIS LATER
-# if __name__ == "__main__":
-#     visualize_osm_file()
-
-
+import os
 import requests
 import folium
 import webbrowser
-from IPython.display import display
+import osmium  # Fast OSM parsing
 
-if __name__ == "__main__":
-    # Coordinates and bounding box size
-    latitude, longitude = 45.5394, -73.6250
-    delta = 0.00225  # Approx 500m in degrees
+# Define base directory and OSM file path
+basedir = os.path.dirname(__file__)
+PATH_TO_OSM_FILES = os.path.join("..", "..", "assets", "osm_files")
+os.makedirs(PATH_TO_OSM_FILES, exist_ok=True)  # Ensure the directory exists
 
-    # Download OSM data
-    osm_url = f"https://overpass-api.de/api/map?bbox={longitude-delta},{latitude-delta},{longitude+delta},{latitude+delta}"
-    osm_file = "map.osm"
+# Bounding box setup (approx. 500m in degrees)
+latitude, longitude = 45.5394, -73.6250
+delta = 0.00225  # ~500m in degrees
+min_lat, max_lat = latitude - delta, latitude + delta
+min_lon, max_lon = longitude - delta, longitude + delta
 
+# File paths
+osm_file = os.path.join(PATH_TO_OSM_FILES, "map.osm")
+road_network_file = os.path.join(PATH_TO_OSM_FILES, "road_network.txt")
+
+# Download OSM data if not already downloaded
+if not os.path.exists(osm_file):
+    osm_url = f"https://overpass-api.de/api/map?bbox={min_lon},{min_lat},{max_lon},{max_lat}"
     response = requests.get(osm_url)
     with open(osm_file, 'wb') as file:
         file.write(response.content)
-
     print(f"OSM data saved as '{osm_file}'")
 
-    # Create and save the Folium map
-    m = folium.Map(location=[latitude, longitude], zoom_start=16)
-    folium.Marker([latitude, longitude], popup="Center Point").add_to(m)
 
-    map_file = "map.html"
-    m.save(map_file)
-    print(f"Map saved as {map_file}")
+# Step 1: Extract node locations
+class NodeLocationHandler(osmium.SimpleHandler):
+    def __init__(self):
+        super().__init__()
+        self.node_locations = {}  # Store node_id -> (lat, lon)
 
-    # Open in browser
-    webbrowser.open(map_file)
+    def node(self, n):
+        if n.location.valid():
+            self.node_locations[n.id] = (n.location.lat, n.location.lon)
 
 
+# Step 2: Extract road network (nodes & unique bidirectional edges)
+class RoadNetworkHandler(osmium.SimpleHandler):
+    def __init__(self, node_locations):
+        super().__init__()
+        self.node_locations = node_locations
+        self.road_nodes = {}  # node_id -> (lat, lon)
+        self.road_edges = set()  # Unique edges stored as (min_id, max_id) to avoid duplicates
+    
+    def way(self, w):
+        if 'highway' in w.tags:  # Process only road networks
+            prev_node_id = None
+            for node in w.nodes:
+                if node.ref in self.node_locations:
+                    self.road_nodes[node.ref] = self.node_locations[node.ref]
+
+                    if prev_node_id is not None:
+                        edge = tuple(sorted([prev_node_id, node.ref]))  # Store edges uniquely
+                        self.road_edges.add(edge)
+
+                    prev_node_id = node.ref  # Update previous node
+
+
+# Step 1: Get all node locations
+node_handler = NodeLocationHandler()
+node_handler.apply_file(osm_file)
+
+# Step 2: Process roads (nodes & unique edges)
+road_handler = RoadNetworkHandler(node_handler.node_locations)
+road_handler.apply_file(osm_file)
+
+# Save road network (Nodes & Edges) in new format
+with open(road_network_file, "w") as file:
+    file.write("Nodes:\n")
+    for node_id, (lat, lon) in road_handler.road_nodes.items():
+        file.write(f"{node_id}: {lat}, {lon}\n")
+    
+    file.write("\nEdges:\n")
+    for source, target in sorted(road_handler.road_edges):
+        file.write(f"{source} <-> {target}\n")
+
+print(f"Filtered road network saved to {road_network_file}")
+
+# Create a Folium map
+m = folium.Map(location=[latitude, longitude], zoom_start=16)
+
+# Plot road nodes
+for node_id, (lat, lon) in road_handler.road_nodes.items():
+    folium.CircleMarker(
+        location=[lat, lon],
+        radius=2,
+        color="red",
+        fill=True,
+        fill_color="red",
+        fill_opacity=0.7
+    ).add_to(m)
+
+    # Add a label for node 215124630
+    if node_id == 11014708666:
+        folium.Marker(
+            location=[lat, lon],
+            popup=f"Node ID: {node_id}\nLat: {lat}, Lon: {lon}",
+            icon=folium.Icon(color="blue", icon="info-sign")
+        ).add_to(m)
+
+# Plot road edges
+for source, target in road_handler.road_edges:
+    lat1, lon1 = road_handler.road_nodes[source]
+    lat2, lon2 = road_handler.road_nodes[target]
+    folium.PolyLine([(lat1, lon1), (lat2, lon2)], color="blue", weight=2).add_to(m)
+
+# Save and open the map
+map_file = os.path.join(PATH_TO_OSM_FILES, "map.html")
+m.save(map_file)
+print(f"Map saved as {map_file}")
+
+webbrowser.open(map_file)
