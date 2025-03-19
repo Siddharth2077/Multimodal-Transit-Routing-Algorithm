@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Release/Multimodal-Transit-Routing-Algorithm.exe"
-		},
-		{
-			"path" : "Release/Multimodal-Transit-Routing-Algorithm.pdb"
+			"path" : "Multimodal-Transit-Routing-Algorithm"
 		}
 	],
 	"backtrace" : 2,
@@ -19,7 +16,7 @@
 		],
 		"files" : 
 		[
-			"C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"/Users/yashaskamath/Library/vcpkg/scripts/buildsystems/vcpkg.cmake",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -53,7 +50,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17"
+					"fragment" : "-O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk"
 				}
 			],
 			"includes" : 
@@ -61,7 +58,7 @@
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/siddh/AppData/Local/Programs/Python/Python312/include"
+					"path" : "/opt/anaconda3/include/python3.12"
 				}
 			],
 			"language" : "CXX",
@@ -81,39 +78,33 @@
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
-		}
-	],
 	"id" : "Multimodal-Transit-Routing-Algorithm::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
+				"fragment" : "-O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{
-				"backtrace" : 3,
-				"fragment" : "C:\\Users\\siddh\\AppData\\Local\\Programs\\Python\\Python312\\libs\\python312.lib",
+				"fragment" : "-Wl,-rpath,/opt/anaconda3/lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"backtrace" : 3,
+				"fragment" : "/opt/anaconda3/lib/libpython3.12.dylib",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "Multimodal-Transit-Routing-Algorithm",
-	"nameOnDisk" : "Multimodal-Transit-Routing-Algorithm.exe",
+	"nameOnDisk" : "Multimodal-Transit-Routing-Algorithm",
 	"paths" : 
 	{
 		"build" : ".",
