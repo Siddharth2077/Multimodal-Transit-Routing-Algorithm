@@ -4,12 +4,16 @@ import requests
 import folium
 import webbrowser
 import osmium  # Fast OSM parsing
+import platform
 
 if __name__ == "__main__":
     # Define base directory and OSM file path
     basedir = os.path.dirname(__file__)
 
-    PATH_TO_OSM_FILES = os.path.join("..", "..", "assets", "osm_files")
+    if platform.system() == "Windows":
+        PATH_TO_OSM_FILES = os.path.join("..", "..", "assets", "osm_files")
+    else:
+        PATH_TO_OSM_FILES = os.path.join("..", "assets", "osm_files")
 
     os.makedirs(PATH_TO_OSM_FILES, exist_ok=True)  # Ensure the directory exists
 

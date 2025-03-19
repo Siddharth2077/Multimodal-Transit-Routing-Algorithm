@@ -14,7 +14,7 @@ int main() {
     if (fp == nullptr) {
         std::cerr << "Error: Could not open visualize.py" << std::endl;
         Py_Finalize();
-        return 1;
+        return 1;   
     }
 
     // Execute the script
