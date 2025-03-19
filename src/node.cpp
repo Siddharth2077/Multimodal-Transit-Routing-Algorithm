@@ -47,10 +47,42 @@ bool node::add_neighbour(int neighbour_id, const path &path_to_neighbour) {
     return true;
 }
 
-void node::print_node() {
+std::vector<int> node::get_neighbour_ids () {
+    std::vector<int> node_neighbours{};
+    for (auto &neighbour : neighbours) {
+        node_neighbours.push_back(neighbour.first);
+    }
+    return node_neighbours;
+}
+
+void node::print_node () {
     std::cout << "Node id: " << id << " Lattitude: " << lattitude << " Longitude: " << longitude << std::endl;
 }
 
-float euclidean_distance(node* a, node* b) {
+bool node::add_heuristic (const int graph_id, const int destination_node_id) {
+    if (!graph::get_node_by_id(destination_node_id))
+        return false;    
+    heuristics[graph_id] = make_shared<cost>(euclidean_distance(id, destination_node_id), 0.0f);
+    return true;
+}
+
+shared_ptr<cost> node::get_heuristic (const int graph_id) {
+    if (heuristics.find(graph_id) == heuristics.end())
+        return shared_ptr<cost>();
+    return heuristics[graph_id];
+}
+
+
+// Friend functions:
+float euclidean_distance (node* a, node* b) {
+    if (!a || !b)
+        return F_INFINITY;
+        
     return sqrt(pow(a->longitude - b->longitude, 2) + pow(a->lattitude - b->lattitude, 2));
+}
+
+float euclidean_distance (const int first_node_id, const int second_node_id) {
+    node* first_node = graph::get_node_by_id(first_node_id);
+    node* second_node = graph::get_node_by_id(second_node_id);
+    return euclidean_distance(first_node, second_node);
 }
