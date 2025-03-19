@@ -3,8 +3,7 @@
 struct cost;
 struct priorityq_entry;
 
-class graph
-{
+class graph {
 private:
     static std::unordered_map<long long int, node *> nodes;
     static int instance_count;
@@ -39,26 +38,22 @@ public:
     static void add_to_graph(node *node);
 };
 
-struct cost
-{
+struct cost {
     double distance;
     double time;
 
     cost(double d = 0.0f, double t = 0.0f) : distance(d), time(t) {}
 };
 
-inline cost operator+(const cost &first, const cost &second)
-{
+inline cost operator+(const cost &first, const cost &second) {
     return cost(first.distance + second.distance, first.time + second.time);
 }
 
-inline shared_ptr<cost> operator+(const shared_ptr<cost> first, const shared_ptr<cost> second)
-{
+inline shared_ptr<cost> operator+(const shared_ptr<cost> first, const shared_ptr<cost> second) {
     return make_shared<cost>(first->distance + second->distance, first->time + second->time);
 }
 
-struct priorityq_entry
-{
+struct priorityq_entry {
     const long long int current_node_id;
     const long long int parent_node_id;
     std::shared_ptr<cost> path_cost;

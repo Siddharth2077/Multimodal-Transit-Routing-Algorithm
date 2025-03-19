@@ -3,7 +3,7 @@ import folium
 
 # Define base directory and OSM file path
 basedir = os.path.dirname(__file__)
-PATH_TO_OSM_FILES = os.path.join(basedir, "..", "assets", "osm_files")
+PATH_TO_OSM_FILES = os.path.join(basedir, "..", "..", "assets", "osm_files")
 road_network_file = os.path.join(PATH_TO_OSM_FILES, "road_network.txt")
 
 # Read node and edge data from the text file

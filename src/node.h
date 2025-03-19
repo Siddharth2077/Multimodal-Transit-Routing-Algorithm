@@ -6,8 +6,7 @@
 struct path;
 struct cost;
 
-class node
-{
+class node {
 private:
     long long int id;
     double lattitude;
@@ -49,8 +48,7 @@ public:
     std::vector<long long int> get_neighbour_ids();
 };
 
-struct path
-{
+struct path {
     double distance = 0.0;
     double time_walk = 0.0;
     double time_bus = 0.0;

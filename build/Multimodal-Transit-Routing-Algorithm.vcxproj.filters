@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\mtra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\src\node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\My Documents\C++ Projects\Multimodal Transit Routing\Multimodal-Transit-Routing-Algorithm\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{CDFB4840-F2EE-3E54-8C45-0AA6F6C07FB9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3B6A0E24-8182-320F-A731-314DC89C3B98}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
