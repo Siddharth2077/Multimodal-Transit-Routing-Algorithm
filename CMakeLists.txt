@@ -6,11 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)  # Enforce the standard
 
 # Find Python3
-find_package(Python3 COMPONENTS Interpreter Development REQUIRED) 
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")         # --- MacOS Only for M-Series ARM Processors --- #
-   set(CMAKE_OSX_ARCHITECTURES "arm64")
-endif()
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
 # Recursively compile all our source files from the /src directory
 file(GLOB_RECURSE SRC_FILES src/*.cpp src/*.h)

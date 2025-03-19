@@ -17,7 +17,8 @@ const int METRO_SPEED {50};
 const int DRIVE_SPEED {60};
 
 const float F_INFINITY {std::numeric_limits<float>().infinity()};
-const std::string PATH_TO_OSM_FILES {"../assets/osm_files"};
+const std::string PATH_TO_OSM_FILES {"../../assets/osm_files"};
+const std::string ROAD_NETWORK_TXT_FILE {"road_network.txt"};
 
 #include "node.h"
 #include "graph.h"

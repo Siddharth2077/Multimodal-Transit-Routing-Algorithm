@@ -1,18 +1,100 @@
 #include "mtra.h"
 #include <queue>
+#include <regex>
+#include <fstream>
+#include <sstream>
+#include <filesystem>
 
 // One Definition Rule 
 // Header files get imported in multiple files, and will lead to multiple definition of static members
 // Static members need to be defined only once, hence, defined in this cpp file to avoid linker errors.
-std::unordered_map<int, node*> graph::nodes;
-int graph::node_count = 0;
+std::unordered_map<long int, node*> graph::nodes;
 int graph::instance_count = 0;
 
-// Constructors:
 graph::graph() : graph_id(++instance_count) {};
 
-graph::graph (int osm_file) : graph_id(++instance_count) {
-    // TODO: Read the osm file and create the graph
+// Constructors:
+graph::graph(std::string road_network_txt) : graph_id(++instance_count) {
+
+    std::ifstream road_network_file(road_network_txt); // Ensure this file exists
+
+    if (!road_network_file.is_open()) {
+        std::cerr << "ERROR: File '" << road_network_txt << "' does not exist. Exiting..." << std::endl;
+        exit(1);
+    }
+    std::cout << "File: '" << road_network_txt << "' found successfully." << std::endl;
+
+    std::string line;
+    bool readingNodes = false;
+    bool readingEdges = false;
+
+    while (std::getline(road_network_file, line)) {
+        // if (line.empty()) {  // Blank line switches from Nodes to Edges
+        //     readingNodes = false;
+        //     readingEdges = true;
+        //     continue;
+        // }
+
+        if (line.empty())
+            continue;
+
+        if (line == "Nodes:") {
+            readingNodes = true;
+            readingEdges = false;
+            continue;
+
+        } else if (line == "Edges:") {
+            readingEdges = true;
+            readingNodes = false;
+            continue;
+        }
+
+        if (readingNodes) {
+            std::cout<<line << "|" << std::endl;
+            std::istringstream ss(line);
+            std::string nodeId, latLong;
+
+            std::cout.precision(20);
+
+            if (std::getline(ss, nodeId, ':') && std::getline(ss, latLong)) {
+                std::istringstream latLongStream(latLong);
+                double lattitude, longitude;
+                char comma;  // To capture the comma
+
+                latLongStream >> lattitude >> comma >> longitude;  // Extract values properly
+
+                // Ensure no trailing unwanted characters
+                // lattitude.erase(lattitude.find_last_not_of(" \t\r\n") + 1);
+                // longitude.erase(longitude.find_last_not_of(" \t\r\n") + 1);
+
+                // Convert and print
+                std::cout << "Node ID: " << std::stol(nodeId) 
+                        << " | Latitude: " << lattitude 
+                        << " | Longitude: " << longitude 
+                        << " |" << std::endl;
+            }
+        }
+        // } else if (readingEdges) {
+        //     std::istringstream ss(line);
+        //     std::string node1, arrow, node2;
+        //     if (ss >> node1 >> arrow >> node2 && arrow == "<->") {
+        //         // Print extracted edge
+        //         std::cout << "Edge: " << node1 << " <-> " << node2 << std::endl;
+        //         // graph::get_node_by_id(std::stol(node1))->add_neighbour(std::stol(node2));
+        //         // graph::get_node_by_id(std::stol(node2))->add_neighbour(std::stol(node1));
+        //     }
+        // }
+        line = "";
+    }
+
+    // for (auto node_pair: nodes) {
+    //     node_pair.second->print_node();
+    //     node_pair.second->print_neighbours();
+    // }
+
+    road_network_file.close();
+    // return 0;
+
 }
 
 graph::graph (bool debug) : graph_id(++instance_count) {
@@ -29,9 +111,9 @@ graph::~graph()  {
     nodes.clear();
 }
 
-std::vector<int> graph::compute_shortest_path (const int source_node_id, const int destination_node_id) {
+std::vector<long int> graph::compute_shortest_path (const long int source_node_id, const long int destination_node_id) {
     if (!graph::get_node_by_id(source_node_id) || !graph::get_node_by_id(destination_node_id))
-        return std::vector<int>();
+        return std::vector<long int>();
 
     if (source_node_id == destination_node_id) {
         return {source_node_id};
@@ -39,9 +121,11 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
 
     bool is_path_found{false};
 
-    std::vector<int> shortest_path{};
+    // List of Node IDs that comprise the shortest path
+    std::vector<long int> shortest_path{};
 
-    std::unordered_map<int, std::pair<int, std::shared_ptr<cost>>> visited; 
+    // Key: Node ID | Value: <Parent Node ID, Cost of node ID>
+    std::unordered_map<long int, std::pair<long int, std::shared_ptr<cost>>> visited; 
 
     struct ComparePriority {
         bool operator()(const std::shared_ptr<priorityq_entry> a, const std::shared_ptr<priorityq_entry> b) const {
@@ -54,7 +138,7 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
 
     
     node* source_node = graph::get_node_by_id(source_node_id);
-    auto source_node_cost = make_shared<cost>(0.0f, 0.0f);
+    auto source_node_cost = make_shared<cost>(0.0, 0.0);
     source_node->add_heuristic(graph_id, destination_node_id);
     auto source_node_heuristic = source_node->get_heuristic(graph_id);
 
@@ -68,15 +152,15 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
         std::shared_ptr<priorityq_entry> nearest_node_entry = priority_q.top();
         priority_q.pop();
 
-        int current_node_id = nearest_node_entry->current_node_id;
-        int parent_node_id = nearest_node_entry->parent_node_id;
+        long int current_node_id = nearest_node_entry->current_node_id;
+        long int parent_node_id = nearest_node_entry->parent_node_id;
 
         if (current_node_id == destination_node_id) {
             is_path_found = true;
             break;
         }
 
-        std::vector<int> neighbour_ids = graph::get_node_by_id(current_node_id)->get_neighbour_ids();
+        std::vector<long int> neighbour_ids = graph::get_node_by_id(current_node_id)->get_neighbour_ids();
         for(auto neighbour_id: neighbour_ids) {
 
             auto neighbour_cost = std::make_shared<cost>(
@@ -92,12 +176,12 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
             auto q_entry = std::make_shared<priorityq_entry>(neighbour_id, current_node_id, neighbour_cost);
             priority_q.push(q_entry);
 
-            float parent_node_cost = (parent_node_id == -1) ? 0.0f : visited[parent_node_id].second->distance;
+            double parent_node_cost = (parent_node_id == -1) ? 0.0 : visited[parent_node_id].second->distance;
 
             // Store cost in visited using unique_ptr
             visited[neighbour_id] = {
                 current_node_id, 
-                std::make_unique<cost>(parent_node_cost + euclidean_distance(current_node_id, neighbour_id), 0.0f)
+                std::make_unique<cost>(parent_node_cost + euclidean_distance(current_node_id, neighbour_id), 0.0)
             };
 
         }
@@ -109,9 +193,9 @@ std::vector<int> graph::compute_shortest_path (const int source_node_id, const i
 
     shortest_path.push_back(destination_node_id);
 
-    int current_node_id = destination_node_id;
+    long int current_node_id = destination_node_id;
     while (visited[current_node_id].first != -1) {
-        int parent_node_id = visited[current_node_id].first;
+        long int parent_node_id = visited[current_node_id].first;
         shortest_path.push_back(parent_node_id);
         current_node_id = parent_node_id;
     }
@@ -142,7 +226,7 @@ void graph::create_debug_graph () {
         node* temp_node = new node(coordinate.first, coordinate.second);
     }
 
-    std::vector<int> node_ids = graph::get_node_ids();
+    std::vector<long int> node_ids = graph::get_node_ids();
 
     std::vector<std::vector<int>> node_neighbours = {
         {7, 11},
@@ -182,27 +266,21 @@ void graph::create_debug_graph () {
             }            
         }
     }
-
-    // for (int node_id: node_ids) {
-    //     graph::get_node_by_id(node_id)->print_neighbours();
-    // }
-
 }
 
 void graph::add_to_graph(node* new_node) {
-    new_node->id = ++node_count;
     nodes[new_node->id] = new_node;
 }
 
-std::vector<int> graph::get_node_ids() {
-    std::vector<int> node_ids;
+std::vector<long int> graph::get_node_ids() {
+    std::vector<long int> node_ids;
     for (const auto &node : nodes) {
         node_ids.push_back(node.first);
     }
     return node_ids;
 }
 
-node* graph::get_node_by_id(const int id) {
+node* graph::get_node_by_id(const long int id) {
     if (nodes.find(id) == nodes.end())
         return nullptr;
     return nodes[id];
