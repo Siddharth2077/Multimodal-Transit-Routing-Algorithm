@@ -1,15 +1,41 @@
 #include "mtra.h"
+#include <Python.h>
 
 int main() {
-    
-    graph debug_graph(true);
+    // Initialize the Python interpreter
+    Py_Initialize();
 
-    std::vector<int> shortest_path = debug_graph.compute_shortest_path(1, 27);
-
-    for (int node_id: shortest_path) {
-        std::cout<<node_id<<" ";
+    // Open the Python file
+    FILE* fp = fopen("visualize.py", "r");
+    if (fp == nullptr) {
+        std::cerr << "Error: Could not open visualize.py" << std::endl;
+        Py_Finalize();
+        return 1;
     }
 
-    std::cout<<std::endl;
-    
+    // Execute the script
+    int result = PyRun_SimpleFile(fp, "visualize.py");
+
+    // Close the file
+    fclose(fp);
+
+    // Finalize the Python interpreter
+    Py_Finalize();
+
+    // Check execution status
+    if (result == 0) {
+        std::cout << "Python script executed successfully." << std::endl;
+    } else {
+        std::cerr << "Error executing Python script." << std::endl;
+    }
+
+    return result;
 }
+
+
+
+
+
+
+
+
