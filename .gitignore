@@ -1,4 +1,7 @@
-/build/
+build/
+
+*.html
+*.osm
 
 CMakeLists.txt.user
 CMakeCache.txt

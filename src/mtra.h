@@ -35,11 +35,10 @@ const std::string ROAD_NETWORK_TXT_FILE {"road_network.txt"};
 const std::string PATH_TXT_FILE {"path.txt"};
 const std::string PY_VISUALIZE_SCRIPT {"visualize.py"};
 const std::string PY_GENERATE_MAP_SCRIPT {"generate_map.py"};
-// const std::string PY_PLOT_GRAPH_SCRIPT {"plot_graph.py"};
 
 // Convert degrees to radians
 inline double degToRad(double degrees) {
-    return degrees * M_PI / 180.0;
+    return degrees * PI / 180.0;
 }
 
 #include "node.h"

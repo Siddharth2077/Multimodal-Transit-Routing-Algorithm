@@ -23,7 +23,7 @@ int main() {
     std::string road_network_txt = PATH_TO_OSM_FILES + ROAD_NETWORK_TXT_FILE;
     graph test_graph(road_network_txt);
 
-    std::vector<long long int> path = test_graph.compute_shortest_path(12240482392, 3358199973);
+    std::vector<long long int> path = test_graph.compute_shortest_path(246463900, 10926590269);
 
     std::string path_txt = PATH_TO_OSM_FILES + PATH_TXT_FILE;
     std::ofstream outFile(path_txt); 
