@@ -1,3 +1,11 @@
+build/
+
+*.html
+*.osm
+
+*.html
+*.osm
+
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
