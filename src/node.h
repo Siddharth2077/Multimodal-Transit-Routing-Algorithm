@@ -13,6 +13,7 @@ private:
     double longitude;
 
     static long long int node_count;
+    static long long int DEBUG_COUNTER;
 
     std::unordered_map<long long int, path> neighbours;
 
@@ -23,6 +24,7 @@ private:
     friend class graph;
     friend double euclidean_distance(node *a, node *b);
     friend double euclidean_distance(const long long int first_node_id, const long long int second_node_id);
+    friend double coordinates_euclidean_distance(double lat1, double lon1, double lat2, double lon2);
 
     node();
     node(double lattitude_val, double longitude_val);
@@ -60,3 +62,6 @@ struct path {
 double euclidean_distance(node *a, node *b);
 
 double euclidean_distance(const long long int first_node_id, const long long int second_node_id);
+
+// Function to compute coordinates Euclidean distance (approximated)
+double coordinates_euclidean_distance(double lat1, double lon1, double lat2, double lon2);

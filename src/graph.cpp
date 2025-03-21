@@ -69,10 +69,10 @@ graph::graph(std::string road_network_txt) : graph_id(++instance_count) {
         }
     }
 
-    for (auto node_pair : nodes) {
-        node_pair.second->print_node();
-        node_pair.second->print_neighbours();
-    }
+    // for (auto node_pair : nodes) {
+    //     node_pair.second->print_node();
+    //     node_pair.second->print_neighbours();
+    // }
 
     road_network_file.close();
 }
@@ -128,6 +128,10 @@ std::vector<long long int> graph::compute_shortest_path(const long long int sour
 
     while (!priority_q.empty()) {
 
+        if (node::DEBUG_COUNTER >= 2485 && node::DEBUG_COUNTER <= 2530) {
+            std::cout << "GOVINDA" << std::endl;
+        }
+
         std::shared_ptr<priorityq_entry> nearest_node_entry = priority_q.top();
         priority_q.pop();
 
@@ -150,6 +154,9 @@ std::vector<long long int> graph::compute_shortest_path(const long long int sour
             // Checks if we should re-visit this node if it has a lower cost
             if (visited.find(neighbour_id) != visited.end() && visited[neighbour_id].second->distance <= neighbour_cost->distance)
                 continue;
+
+            // if (visited.find(neighbour_id) != visited.end())
+            //     continue;
 
             auto q_entry = std::make_shared<priorityq_entry>(neighbour_id, current_node_id, neighbour_cost);
             priority_q.push(q_entry);

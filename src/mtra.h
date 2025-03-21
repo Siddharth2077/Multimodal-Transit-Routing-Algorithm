@@ -16,6 +16,11 @@ const int BUS_SPEED {30};
 const int METRO_SPEED {50};
 const int DRIVE_SPEED {60};
 
+// Approximate conversion factor for latitude/longitude to kilometers (at mid-latitudes)
+const double DEG_TO_KM = 111.32; // 1 degree ≈ 111.32 km
+
+const double PI {3.14159265358979};
+
 const float F_INFINITY {std::numeric_limits<float>().infinity()};
 
 #if defined(_WIN32) || defined(_WIN64)    

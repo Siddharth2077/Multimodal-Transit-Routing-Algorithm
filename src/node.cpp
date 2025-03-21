@@ -1,6 +1,7 @@
 #include "mtra.h"
 
 long long int node::node_count = 0;
+long long int node::DEBUG_COUNTER = 0;
 
 node::node() : longitude(0.0f), lattitude(0.0f), id(++node_count) {                     // Default constructor
     graph::add_to_graph(this);
@@ -83,11 +84,23 @@ shared_ptr<cost> node::get_heuristic(const int graph_id) {
 double euclidean_distance(node *a, node *b) {
     if (!a || !b)
         return F_INFINITY;
-    return sqrt(pow(a->longitude - b->longitude, 2) + pow(a->lattitude - b->lattitude, 2));
+    // ! CHANGE THIS !
+    // return sqrt(pow(a->longitude - b->longitude, 2) + pow(a->lattitude - b->lattitude, 2));
+    return coordinates_euclidean_distance(a->lattitude, a->longitude, b->lattitude, b->longitude);
 }
 
 double euclidean_distance(const long long int first_node_id, const long long int second_node_id) {
     node *first_node = graph::get_node_by_id(first_node_id);
     node *second_node = graph::get_node_by_id(second_node_id);
     return euclidean_distance(first_node, second_node);
+}
+
+double coordinates_euclidean_distance(double lat1, double lon1, double lat2, double lon2) {
+    std::cout << "INSIDE coordinates_euclidean_distance FUNCTION -> " << ++node::DEBUG_COUNTER << std::endl;
+    // Convert latitude/longitude degrees to approximate kilometers
+    double dx = (lon2 - lon1) * DEG_TO_KM * cos((lat1 + lat2) * PI / 360.0);
+    double dy = (lat2 - lat1) * DEG_TO_KM;
+
+    // Compute Euclidean distance
+    return std::sqrt(dx * dx + dy * dy);
 }

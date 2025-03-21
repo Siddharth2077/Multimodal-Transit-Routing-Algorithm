@@ -18,6 +18,7 @@ private:
     friend class node;
     friend double euclidean_distance(node *a, node *b);
     friend double euclidean_distance(const long long int first_node_id, const long long int second_node_id);
+    friend double coordinates_euclidean_distance(double lat1, double lon1, double lat2, double lon2);
 
     // Helpers:
     void create_debug_graph();
