@@ -2,6 +2,7 @@ build/
 
 *.html
 *.osm
+*.txt
 
 CMakeLists.txt.user
 CMakeCache.txt
