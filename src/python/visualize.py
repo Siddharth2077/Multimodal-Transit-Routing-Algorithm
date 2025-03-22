@@ -2,6 +2,7 @@ import os
 import platform
 import requests
 import osmium
+import pydeck as pdk
 
 # Define paths
 if platform.system() == "Windows":
