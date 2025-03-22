@@ -2,7 +2,6 @@ import os
 import platform
 import requests
 import osmium
-import pydeck as pdk
 
 # Define paths
 if platform.system() == "Windows":
@@ -72,7 +71,7 @@ road_layer = pdk.Layer(
     get_target_position="end",
     get_color=[43, 139, 196],  # Blue roads
     get_width=3,
-    pickable=True
+    pickable=False # Disable hover effects
 )
 
 marker_layer = pdk.Layer(
@@ -91,7 +90,8 @@ path_layer = pdk.Layer(
     get_source_position="start",
     get_target_position="end",
     get_color=[0, 255, 0],  # Green path
-    get_width=4
+    get_width=4,
+    pickable=False # Disable hover effects
 )
 
 # Center map on first node
