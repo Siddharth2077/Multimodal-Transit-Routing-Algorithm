@@ -32,9 +32,12 @@ const float F_INFINITY {std::numeric_limits<float>().infinity()};
 const std::string PATH_TO_OSM_FILES {PATH_ADAPTER + "../assets/osm_files/"};
 const std::string ROAD_NETWORK_TXT_FILE {"road_network.txt"};
 const std::string PATH_TXT_FILE {"path.txt"};
+const std::string PATH_TO_BUS_STOPS {"../assets/bus_stops/"};
+const std::string STOPS_TXT_FILE {"stops.txt"};
 const std::string PATH_TO_PYTHON_SCRIPTS {PATH_ADAPTER + "../src/python/"};
 const std::string PY_VISUALIZE_SCRIPT {"visualize.py"};
 const std::string PY_GENERATE_MAP_SCRIPT {"generate_map.py"};
+const std::string PY_VISUALIZE_STOPS_SCRIPT {"visualize_stops.py"};
 
 // Convert degrees to radians
 inline double degToRad(double degrees) {
